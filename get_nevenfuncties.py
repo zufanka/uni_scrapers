@@ -17,7 +17,7 @@ geenurl = urlopen("https://www.tilburguniversity.edu/nl/webwijs/show/?uid=m.vanr
 # testurl for a profilepage
 
 def get_da_nevenfuncties(url):
-# parse nevenfuncties - name of function + time
+# parse nevenfuncties (side jobs) - name of function
 
 	doc = lxml.html.document_fromstring(url)
 
@@ -28,7 +28,6 @@ def get_da_nevenfuncties(url):
 		return functie
 	else:
 
-#	functie = [x.text for x in doc.xpath('//tr[td="Soort Nevenwerk / Nature of side position"]/td[2]')]
 	# get all the nodes, with text and empty ones
 		functie = ['0' if x==None else x for x in functie]
 		# replace NoneType with '0'
@@ -45,6 +44,7 @@ def get_fac(url):
 	return faculty
 
 for row in details:
+	# details is a csv file with the name, id and url to the personal page of the prof. An example page can be found in variables "testurl" en "geenurl"
 	prof = row.split(",")
 	prof_id = prof[0]
 	prof_url = prof[5].rstrip()
@@ -57,9 +57,6 @@ for row in details:
 
 	nevenfuncties = get_da_nevenfuncties(naostrourl)
 	prof_fac = get_fac(naostrourl)[1]
-
-#	print nevenfuncties
-#	print prof_fac[1]
 
 	for funct in nevenfuncties:
 		if funct == ' ':
