@@ -24,6 +24,7 @@ def get_da_nevenfuncties(url):
 	functie = doc.xpath('//div[@id="content_activiteiten"]/div/descendant::*/text()')
 
 	if functie == []:
+	# if no sidejob is found, it gets a value "1"
 		functie = "1"
 		return functie
 	else:
